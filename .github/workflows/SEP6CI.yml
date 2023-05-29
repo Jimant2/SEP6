@@ -1,4 +1,4 @@
-name: SEP6CI - front-endWebApp
+name: Build and deploy ASP.Net Core app to Azure Web App - front-endWebApp
 
 on:
   push:
