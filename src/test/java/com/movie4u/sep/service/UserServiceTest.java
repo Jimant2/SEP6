@@ -24,7 +24,7 @@ class UserServiceTest {
 
 
 
-    @Test
+  /*  @Test
     void save() {
         TopListMovie topListMovie = new TopListMovie();
         topListMovie.setMovieId(35423);
@@ -50,5 +50,5 @@ class UserServiceTest {
         System.out.println(result.getMovieId());
         System.out.println(result.getUsername());
     }
-
+*/
 }

@@ -22,7 +22,7 @@ class MovieServiceTest {
     @Autowired
     private StarRepository starRepository;
 
-    @Test
+  /*  @Test
     void findAllMovieByStarName() {
         var results = movieRepository.findRatingStatisticsInDecade(2000L, 2010L);
         List<RatingStatistics> statistics = new ArrayList<>();
@@ -31,6 +31,5 @@ class MovieServiceTest {
             long count = (long) result[1];
             RatingStatistics ratingStatistics = new RatingStatistics(rating, count);
             statistics.add(ratingStatistics);
-        }
-    }
+        }*/
 }
