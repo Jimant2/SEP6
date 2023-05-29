@@ -48,5 +48,5 @@ jobs:
           app-name: 'front-endWebApp'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9B295C17DF8C41A68559F917A57764A2 }}
-          package: ./app
+          package: .
           action: 'deploy'
