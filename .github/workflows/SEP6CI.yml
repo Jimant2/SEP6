@@ -1,4 +1,4 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - front-endWebApp
+name: SEP6 CI - front-endWebApp
 
 on:
   push:
@@ -47,6 +47,5 @@ jobs:
         with:
           app-name: 'front-endWebApp'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9B295C17DF8C41A68559F917A57764A2 }}
-          package: .
-          action: 'deploy'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B68DAFC575A94D72803E43AF15390EC7 }}
+          package: ${{ github.workspace }}/blazor-app
