@@ -38,6 +38,36 @@
         </AuthorizeView>
     </div>
 </div>
+@*<div class="container">
+    <div class="image-container">
+        <img src="/img/favpng_movie-logo.png" class="login-page-logo" />
+    </div>
+
+    <div class="form-group px-4">
+        <label for="name">Name:</label>
+        <input autofocus="true" id="name" class="form-control" @bind="@name" />
+    </div>
+
+    <div class="form-group px-4">
+        <label for="id">Password:</label>
+        <input type="password" id="myInput" class="form-control" @bind="@password" />
+    </div>
+
+    <div class="bottom-row px-4">
+        <div class="spacer"></div> <!-- Spacer to push the login button below -->
+        <AuthorizeView>
+            <NotAuthorized>
+                <div>
+                <button class="btn btn-primary custom-btn" @onclick="Login">Login</button>
+                </div>
+                <div>
+                <button class="btn btn-primary custom-btn" @onclick="GoBack">Go Back</button>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+
+    </div>
+</div>*@
 <p>@errorMessage</p>
 
 @code {

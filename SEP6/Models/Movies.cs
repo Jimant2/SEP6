@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public string title { get; set; }
-        public long? year { get; set; }
+        public int year { get; set; }
         public Ratings rating { get; set; }
         public List<Directors> directors { get; set; }
         public List<Stars> stars { get; set; }       

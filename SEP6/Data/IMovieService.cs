@@ -11,6 +11,5 @@ namespace SEP6.Data
         Task<User> PostFavoriteMovies(string username, int movieId);
 
         Task<User> RemoveFromFavorites(string username, int movieId);
-        Task<List<Movies>> GetShuffledMovies();
     }
 }
