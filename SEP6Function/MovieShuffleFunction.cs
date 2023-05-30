@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using SEP6.Models;
 using System.Linq;
+using SEP6.Data;
 
 namespace SEP6Function
 {
@@ -22,44 +22,42 @@ namespace SEP6Function
 
         [FunctionName("MovieShuffleFunction")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "movies/shuffle")] HttpRequest req,
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "movies/shuffle")] HttpRequest req)
         {
             // Get movies from the external API (OMDb)
-            var movies = await GetMoviesFromOMDb();
+            _movies = await GetMovies();
 
             // Shuffle the movies
-            var shuffledMovies = movies.OrderBy(m => Guid.NewGuid()).ToList();
+            var shuffledMovies = _movies.OrderBy(m => Guid.NewGuid()).ToList();
 
             // Return the shuffled movies as JSON
             return new JsonResult(shuffledMovies);
         }
 
-        private static async Task<List<Movies>> GetMoviesFromOMDb()
+        public static async Task<List<Movies>> GetMovies()
         {
-            string baseUrl = "http://www.omdbapi.com/";
+            string baseUrl = "https://app-backend-sep-230516174355.azurewebsites.net/v2/movies";
             string apiKey = "c04f487";
 
-            //not specifying a particular title to fetch all movies
-            string url = $"{baseUrl}?apikey={apiKey}&s=*";
+            Random random = new Random();
+            char randomChar = (char)('a' + random.Next(26));
+
+            // Not specifying a particular title to fetch all movies
+            string url = $"{baseUrl}?title={randomChar}&{apiKey}&size=10";
 
             var response = await httpClient.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
             var result = await response.Content.ReadAsStringAsync();
-            var omdbResult = JsonConvert.DeserializeObject<OMDBResult>(result);
+            var movieResult = JsonConvert.DeserializeObject<List<Movies>>(result);
 
-            if (omdbResult != null && omdbResult.Search != null)
+            if (movieResult != null)
             {
-                // Map OMDBResult to your Movie model or create new Movie instances
-                var movies = omdbResult.Search.Select(omdbMovie => new Movies
-                {
-                    title = omdbMovie.Title,
-                    year = omdbMovie.Year,
-                    // Map other properties as needed
-                }).ToList();
 
-                return movies;
+                // Shuffle the movies by year
+                var shuffledMovies = movieResult.OrderBy(m => Guid.NewGuid()).ToList();
+
+                return shuffledMovies;
             }
 
             return new List<Movies>(); // Return an empty list if no movies are found
