@@ -5,9 +5,7 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEP6", "SEP6\SEP6.csproj", "{5DD2E8E7-715F-417F-8F7A-0E53229E4C7C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEP6Function", "SEP6Function\SEP6Function.csproj", "{FC9794A0-9027-47C3-9C9D-D681745E37B6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP6Tests", "SEP6Tests\SEP6Tests.csproj", "{2CB44C46-581D-4578-BF80-1C50C0037128}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEP6Function", "SEP6Function\SEP6Function.csproj", "{FC9794A0-9027-47C3-9C9D-D681745E37B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{FC9794A0-9027-47C3-9C9D-D681745E37B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC9794A0-9027-47C3-9C9D-D681745E37B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC9794A0-9027-47C3-9C9D-D681745E37B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2CB44C46-581D-4578-BF80-1C50C0037128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CB44C46-581D-4578-BF80-1C50C0037128}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CB44C46-581D-4578-BF80-1C50C0037128}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CB44C46-581D-4578-BF80-1C50C0037128}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
