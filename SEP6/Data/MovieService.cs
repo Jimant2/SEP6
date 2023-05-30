@@ -23,6 +23,24 @@ namespace SEP6.Data
         {
         }
 
+        //public async Task<OMDBResult> GetMoviesFromOMDb(string title)
+        //{
+        //    string baseUrl = "http://www.omdbapi.com/";
+        //    string apiKey = "c04f487";
+
+        //    string encodedTitle = Uri.EscapeDataString(title);
+        //    string url = $"{baseUrl}?apikey={apiKey}&s={encodedTitle}";
+
+        //    var response = await httpClient.GetAsync(url);
+        //    response.EnsureSuccessStatusCode();
+
+
+        //    var result = await response.Content.ReadAsStringAsync();
+        //    var listOfMovieResults = JsonConvert.DeserializeObject<OMDBResult>(result);
+
+        //    return listOfMovieResults;
+        //}
+
         public async Task<OMDBResult> GetMoviesFromOMDb(string title)
         {
             string baseUrl = "http://www.omdbapi.com/";
@@ -40,7 +58,28 @@ namespace SEP6.Data
 
             return listOfMovieResults;
         }
+                                              
+        public async Task<List<Movies>> GetShuffledMovies()
+        {
+            string url = "https://sep6functionapp.azurewebsites.net/api/movies/shuffle";
 
+            var response = await httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadAsStringAsync();
+            var shuffledMovies = JsonConvert.DeserializeObject<List<Movies>>(result);
+
+            if (shuffledMovies != null)
+            {
+                foreach (var movie in shuffledMovies.Where(x => !String.IsNullOrEmpty(x.title)))
+                {
+                    Console.WriteLine($"Processing movie: {movie.title}");
+                    await UpdateMovieWithOMDbDetails(movie);
+                }
+            }
+
+            return shuffledMovies;
+        }
 
         public async Task<List<Movies>> IndexMovie(string searchedMovie)
         {
