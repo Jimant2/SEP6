@@ -58,7 +58,28 @@ namespace SEP6.Data
 
             return listOfMovieResults;
         }
+                                              
+        public async Task<List<Movies>> GetShuffledMovies()
+        {
+            string url = "https://sep6functionapp.azurewebsites.net/api/movies/shuffle";
 
+            var response = await httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadAsStringAsync();
+            var shuffledMovies = JsonConvert.DeserializeObject<List<Movies>>(result);
+
+            if (shuffledMovies != null)
+            {
+                foreach (var movie in shuffledMovies.Where(x => !String.IsNullOrEmpty(x.title)))
+                {
+                    Console.WriteLine($"Processing movie: {movie.title}");
+                    await UpdateMovieWithOMDbDetails(movie);
+                }
+            }
+
+            return shuffledMovies;
+        }
 
         public async Task<List<Movies>> IndexMovie(string searchedMovie)
         {

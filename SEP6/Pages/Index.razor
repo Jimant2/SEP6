@@ -17,23 +17,32 @@
     <Authorized>
 <h3 id="MoviesTitleIndex">Movies</h3>
 
-@if (moviesList != null && moviesList.Search != null)
+@if (moviesList != null && moviesList != null)
 {
     <div class="container">
         <div class="row">
-            @foreach (var movie in moviesList.Search)
+            @foreach (var movie in moviesList)
             {
                 <div class="col-md-4">
                     <div class="poster-container">
-                        <img src="@movie.Poster" class="poster-image" />
+                        @if(movie.Poster != null)
+                        {
+                                    <img src="@movie.Poster" class="poster-image" />
+                                }
+                                else
+                                {
+                                    <img src="/img/Image_not_available.png" class="poster-image" />
+                                }
                         <div class="movie-info">
-                            <div class="movie-title">@movie.Title</div>
+                            <div class="movie-title">@movie.title</div>
                             <div class="movie-details" style="width: 20%; float:left">
-                                <span class="movie-type">@textInfo.ToTitleCase(movie.Type)</span>  <span class="movie-year">@movie.Year</span>
-                                
+                                @if(movie.Type != null)
+                                        {
+                                            <span class="movie-type">@textInfo.ToTitleCase(movie.Type)</span>  <span class="movie-year">@movie.year</span>
+                                        }   
                             </div>
                             <div style="width: 80%; float:right">
-                            <button @onclick="() => AddToFavorites(movie.ImdbID)" class="fa fa-heart btn"> Add to favorites</button>
+                            <button @onclick="() => AddToFavorites(movie.Id)" class="fa fa-heart btn"> Add to favorites</button>
                             </div
                         </div>
                     </div>
@@ -49,7 +58,7 @@
 </AuthorizeView>
 @code {
 
-    public OMDBResult moviesList { get; set; }
+    public List<Movies> moviesList { get; set; }
     public OMDBResult movieTitles { get; set; }
     public MoviesOMDB moviesOMDB { get; set; }
     TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
@@ -58,8 +67,10 @@
     {
         try
         {
-            string title = "The Room";
-            moviesList = await movieService.GetMoviesFromOMDb(title);
+            //string title = "The Room";
+            //moviesList = await movieService.GetMoviesFromOMDb(title);
+
+            moviesList = await movieService.GetShuffledMovies();
         }
         catch (Exception ex)
         {
@@ -68,9 +79,9 @@
         }
     }
 
-    public async Task AddToFavorites(string movieId)
+    public async Task AddToFavorites(int movieId)
     {
-        int intMovieId = int.Parse(movieId.Replace("t", ""));
+       // int intMovieId = int.Parse(movieId.Replace("t", ""));
         var serializedUser = await JSRuntime.InvokeAsync<string>("sessionStorage.getItem", "currentUser");
 
         var user = JsonConvert.DeserializeObject<User>(serializedUser);
@@ -81,7 +92,7 @@
             try
             {
                 Console.WriteLine("Adding to favorites");
-                await movieService.PostFavoriteMovies(username, intMovieId);
+                await movieService.PostFavoriteMovies(username, movieId);
                 toastService.ShowSuccess("Movie added to favorites.");
                 
             }
