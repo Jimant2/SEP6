@@ -13,7 +13,7 @@ using System.Linq;
 using SEP6.Data;
 
 namespace SEP6Function
-{
+{ 
     public static class MovieShufflerFunction
     {
         private static readonly HttpClient httpClient = new HttpClient();
