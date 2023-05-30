@@ -23,24 +23,6 @@ namespace SEP6.Data
         {
         }
 
-        //public async Task<OMDBResult> GetMoviesFromOMDb(string title)
-        //{
-        //    string baseUrl = "http://www.omdbapi.com/";
-        //    string apiKey = "c04f487";
-
-        //    string encodedTitle = Uri.EscapeDataString(title);
-        //    string url = $"{baseUrl}?apikey={apiKey}&s={encodedTitle}";
-
-        //    var response = await httpClient.GetAsync(url);
-        //    response.EnsureSuccessStatusCode();
-
-
-        //    var result = await response.Content.ReadAsStringAsync();
-        //    var listOfMovieResults = JsonConvert.DeserializeObject<OMDBResult>(result);
-
-        //    return listOfMovieResults;
-        //}
-
         public async Task<OMDBResult> GetMoviesFromOMDb(string title)
         {
             string baseUrl = "http://www.omdbapi.com/";
